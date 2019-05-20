@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-class FileuploadView(APIView):
+class FileUploadView(APIView):
     parser_classes = (FileUploadParser,)
 
     def put(self, request, filename, format=None):
