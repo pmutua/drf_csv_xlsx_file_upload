@@ -42,19 +42,19 @@ djangorestframework >=3.0
 3. Login to this url with your credentials: `http://localhost:8000/rest-auth/login/`
 
 
-# Open Postman navigate to `Authorization` and choose  `Basic Auth`
+### Open Postman navigate to `Authorization` and choose  `Basic Auth`
 
 
 ![alt text](/static/postman.PNG)
 
 
-# Making a POST request
+### Making a POST request
 
 
 ![alt text](/static/postman01.PNG)
 
 
-# View the seeded data 
+### View the new data seeded 
 
 ![alt text](/static/patient_list.PNG)
 
