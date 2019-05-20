@@ -1,7 +1,8 @@
+from .models import *
 from rest_framework import serializers
 
 
-class Patient(serializers.Serializer):
+class PatientSerializer(serializers.Serializer):
     """Represents patient serializer class."""
 
     class Meta:
