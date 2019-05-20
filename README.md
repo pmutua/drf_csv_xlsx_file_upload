@@ -56,7 +56,7 @@ djangorestframework >=3.0
 
 ### View the new data seeded 
 
-![alt text](/static/patient_list.PNG)
+![alt text](/static/postman03.PNG)
 
 ### TODO 
 
