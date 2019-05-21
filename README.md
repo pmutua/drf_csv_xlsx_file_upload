@@ -1,6 +1,6 @@
 # Drf Upload CSV
 
-API allows a user to upload `.csv` file and load the data into the database.
+API allows a user to upload `.csv` file containing patient emails and load the data into the database.
 
 Requirements:
 ```bash
