@@ -25,3 +25,4 @@ class FileSerializer(serializers.ModelSerializer):
 
         model = FileUpload
         fields = '__all__'
+        read_only_fields = ('owner',)

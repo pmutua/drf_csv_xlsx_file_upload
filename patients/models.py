@@ -1,15 +1,6 @@
 """All Model definitions of patients app."""
 from django.db import models
-
-
-class User(models.Model):
-    """Represents User class Model."""
-
-    uuid = models.CharField(max_length=250)
-
-    def __str__(self):
-        """Return user uuid."""
-        return self.uuid
+from django.contrib.auth.models import User
 
 
 class Patient(models.Model):
@@ -37,7 +28,7 @@ class Patient(models.Model):
 class FileUpload(models.Model):
     """Represents file upload model class."""
 
-    owner = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
+    owner = models.CharField(max_length=250)
     file = models.FileField(upload_to='csv_uploads/%y/%m')
     created = models.DateTimeField(auto_now_add=True)
 
