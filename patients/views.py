@@ -1,5 +1,4 @@
 """Contains all the class views for patients app."""
-import csv
 import io
 from .models import Patient
 from .serializers import (
@@ -44,13 +43,8 @@ class FileUploadView(APIView):
         _dict_file_obj = request.data['file'].__dict__
 
         _csv = _dict_file_obj['_name'].endswith('.csv')
-        print(_csv)
-        _excel = _dict_file_obj['_name'].endswith('.xlsx')
 
-        if _csv or _excel is False:
-            err = {"error": "Can only upload *.csv or *.xlsx files"}
-            return Response(data=err,
-                            status=status.HTTP_400_BAD_REQUEST)
+        _excel = _dict_file_obj['_name'].endswith('.xlsx')
 
         if request.data['file'] is None:
             return Response({"error": "No File Found"},
@@ -73,7 +67,9 @@ class FileUploadView(APIView):
                     return Response(data=err,
                                     status=status.HTTP_400_BAD_REQUEST
                                     )
-                first_name, last_name, email = columns[0], columns[1], columns[2]
+                first_name, last_name, email = columns[0], columns[1],\
+                    columns[2]
+
                 for index, row in csv_file.iterrows():
                     obj, created = Patient.objects.get_or_create(
                         firstname=row[first_name],
@@ -81,17 +77,19 @@ class FileUploadView(APIView):
                         email=row[email]
                     )
 
-            if _excel is True:
+            elif _excel is True:
                 xl = pd.read_excel(data)
                 columns = list(xl.columns.values)
                 column_length = len(list(xl.columns.values))
                 # Check if the file has three columns.
                 if column_length != 3:
-                    err = {"message": "The Excel File must have 3 columns:  FirstName LastName Email"}
+                    err = {"message": "The Excel File must have 3 columns:\
+                      FirstName LastName Email"}
                     return Response(data=err,
                                     status=status.HTTP_400_BAD_REQUEST
                                     )
-                first_name, last_name, email = columns[0], columns[1], columns[2]
+                first_name, last_name, email = columns[0], columns[1],\
+                    columns[2]
 
                 for index, row in xl.iterrows():
                     obj, created = Patient.objects.get_or_create(
@@ -99,10 +97,15 @@ class FileUploadView(APIView):
                         lastname=row[last_name],
                         email=row[email]
                     )
+            else:
+                return Response(data={"err": "Must be *.xlsx or *.csv File."},
+                                status=status.HTTP_400_BAD_REQUEST
+                                )
+
             file_serializer.save()
             return Response(
                 {"message": "Upload Successfull",
-                 "data": file_serializer.data}, status=200)
+                 "data": file_serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response(file_serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST
