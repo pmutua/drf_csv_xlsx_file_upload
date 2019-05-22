@@ -45,18 +45,24 @@ pandas == 0.24.2
 
 #### Open Postman navigate to `Authorization` and choose  `Basic Auth`
 
+&nbsp;
+
+&nbsp;
 
 ![alt text](/static/postman.PNG)
 
 
 #### Making a POST request
 
-
+&nbsp;
+&nbsp;
 ![alt text](/static/postman01.PNG)
 
 
 #### View the new data seeded 
 
+&nbsp;
+&nbsp;
 ![alt text](/static/postman03.PNG)
 
 #### TODO 
