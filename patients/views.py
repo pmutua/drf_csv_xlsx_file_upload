@@ -33,7 +33,7 @@ class FileUploadView(APIView):
 
         Then reads it and saves csv data to database.
 
-        Endpoint: /api/patients/csv_upload
+        Endpoint: /api/patients/file_upload/
         """
         request.data['owner'] = request.user.id
         file_serializer = FileSerializer(data=request.data)
