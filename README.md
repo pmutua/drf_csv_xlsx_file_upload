@@ -1,13 +1,14 @@
-# Drf Upload CSV
+# Drf Upload CSV Excel
 
-API allows a user to upload `.csv` file containing patient names and emails then load the data into the database.
+API allows a user to upload `.csv` & `xlsx` files containing patient names and emails then load the data into the database.
 
 Requirements:
 ```bash
-Python >=3.4
+Python >=3.0
 Django >= 2.0,
 django-rest-auth
 djangorestframework >=3.0
+pandas == 0.24.2
 ```
 
 # Features
