@@ -1,4 +1,4 @@
-# Drf Upload CSV Excel
+# Drf File Upload
 
 API allows a user to upload `.csv` & `xlsx` files containing patient names and emails then load the data into the database.
 
