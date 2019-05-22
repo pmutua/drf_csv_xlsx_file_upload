@@ -15,7 +15,7 @@ pandas == 0.24.2
 
 - Uploading a file.
 
-- Import working only for *.csv or *xlsx files.
+- Import working only for *.csv or *.xlsx files.
 
 - Show error message if one tries to upload files in other formats.
 
@@ -28,34 +28,34 @@ pandas == 0.24.2
 
 # Usage 
 
-1. Run:
+#### Run:
 
 `python manage.py makemigrations`
 
 `python manage.py migrate`
 
 
-2. Create User
+#### Create User
 
 `python manage.py createsuperuser` follow prompt
 
 
-3. Login to this url with your credentials: `http://localhost:8000/rest-auth/login/`
+#### Login to this url with your credentials: `http://localhost:8000/rest-auth/login/`
 
 
-### Open Postman navigate to `Authorization` and choose  `Basic Auth`
+# Open Postman navigate to `Authorization` and choose  `Basic Auth`
 
 
 ![alt text](/static/postman.PNG)
 
 
-### Making a POST request
+# Making a POST request
 
 
 ![alt text](/static/postman01.PNG)
 
 
-### View the new data seeded 
+# View the new data seeded 
 
 ![alt text](/static/postman03.PNG)
 
