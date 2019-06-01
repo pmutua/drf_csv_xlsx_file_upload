@@ -60,43 +60,40 @@ class FileUploadView(APIView):
 
                 csv_file = pd.read_csv(io_string, low_memory=False)
                 columns = list(csv_file.columns.values)
-                column_length = len(columns)
-                if column_length != 3:
-                    err = {"message": "The Excel File must have 3 columns \
-                    in the following order: FirstName LastName Email"}
-                    return Response(data=err,
-                                    status=status.HTTP_400_BAD_REQUEST
-                                    )
+
                 first_name, last_name, email = columns[0], columns[1],\
                     columns[2]
 
-                for index, row in csv_file.iterrows():
-                    obj, created = Patient.objects.get_or_create(
+                instances = [
+                    Patient(
                         firstname=row[first_name],
                         lastname=row[last_name],
                         email=row[email]
                     )
+
+                    for index, row in csv_file.iterrows()
+                ]
+
+                Patient.objects.bulk_create(instances)
 
             elif _excel is True:
                 xl = pd.read_excel(data)
                 columns = list(xl.columns.values)
-                column_length = len(list(xl.columns.values))
-                # Check if the file has three columns.
-                if column_length != 3:
-                    err = {"message": "The Excel File must have 3 columns:\
-                      FirstName LastName Email"}
-                    return Response(data=err,
-                                    status=status.HTTP_400_BAD_REQUEST
-                                    )
                 first_name, last_name, email = columns[0], columns[1],\
                     columns[2]
 
-                for index, row in xl.iterrows():
-                    obj, created = Patient.objects.get_or_create(
+                instances = [
+                    Patient(
                         firstname=row[first_name],
                         lastname=row[last_name],
                         email=row[email]
                     )
+
+                    for index, row in xl.iterrows()
+                ]
+
+                Patient.objects.bulk_create(instances)
+
             else:
                 return Response(data={"err": "Must be *.xlsx or *.csv File."},
                                 status=status.HTTP_400_BAD_REQUEST
