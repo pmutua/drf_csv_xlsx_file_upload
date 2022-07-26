@@ -15,7 +15,7 @@ pandas == 0.24.2
 
 - Uploading a file.
 
-- Import working only for *.csv or *.xlsx files.
+- Import works only for *.csv or *.xlsx files.
 
 - Show error message if one tries to upload files in other formats.
 
