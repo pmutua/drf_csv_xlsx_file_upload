@@ -19,7 +19,9 @@ class Patient(models.Model):
     firstname = models.CharField(max_length=250)
     lastname = models.CharField(max_length=250)
     email = models.CharField(max_length=250)
-
+    age = models.IntegerField(null=True, blank=True)
+    location = models.CharField(max_length=250, null=True, blank=True)
+    
     def __str__(self):
         """Return firstname and last name."""
         return " {}-{} ".format(self.firstname, self.lastname)

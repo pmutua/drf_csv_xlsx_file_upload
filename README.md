@@ -1,17 +1,20 @@
 # Drf File Upload
 
-API allows a user to upload `.csv` & `xlsx` files containing patient names and emails then load the data into the database.
+API allows a user to upload `.csv` & `xlsx` files containing patient names and emails then load the data into the database. Query Database and csv data with langchain.
 
 Requirements:
+
 ```bash
 Python >=3.0
-Django >= 2.0,
-django-rest-auth
-djangorestframework >=3.0
-pandas == 0.24.2
+Django==3.0
+djangorestframework==3.14.0
+pandas==2.0.3
+langchain==0.0.229
+openai
+tabulate
 ```
 
-# Features
+## Features
 
 - Uploading a file.
 
@@ -24,47 +27,58 @@ pandas == 0.24.2
 - Show response if import wasn't done and the reason why.
 
 - List all patients after the file has been uploaded.
+- Query Database with LLM
+- Query CSV with LLM
 
+## Usage
 
-# Usage 
-
-#### Run:
+Run:
 
 `python manage.py makemigrations`
 
 `python manage.py migrate`
 
-
-#### Create User
+### Create User
 
 `python manage.py createsuperuser` follow prompt
 
+### Making a POST request
 
-#### Login to this url with your credentials: `http://localhost:8000/rest-auth/login/`
-Open Postman navigate to `Authorization` and choose  `Basic Auth`
-&nbsp;
-
-&nbsp;
-
-![alt text](/static/postman.PNG)
-
-
-#### Making a POST request
 &nbsp;
 &nbsp;
 ![alt text](/static/postman01.PNG)
 
-#### View the new data seeded 
+#### View the new data seeded
+
 &nbsp;
 &nbsp;
 ![alt text](/static/postman03.PNG)
 
-#### TODO 
+#### TODO
 
 - Show error message if the file is corrupted.
 
+<!-- ### Clearing migrations
 
+1. #### Remove the all migrations files within your project
 
-#### Author 
+Or if you are using a unix-like OS you can run the following script (inside your project dir):
 
-Philip Mutua 
+```bash
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete.
+
+```
+
+2. #### Drop the current database, or delete the db.sqlite3 if it is your case.
+
+3. #### Create the initial migrations and generate the database schema
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+``` -->
+
+#### Author
+
+Philip Mutua

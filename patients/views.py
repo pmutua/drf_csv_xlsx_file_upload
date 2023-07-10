@@ -14,8 +14,31 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
+from patients.llm.langchain import queryDb, queryCSV
 
+
+class QueryDBAPIView(APIView):
+    def post(self, request):
+        text = request.data.get('prompt')
+   
+        try:
+            res= queryDb(text)
+            
+            return Response(res, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+            
+class QueryCSVAPIView(APIView):
+    def post(self, request):
+        text = request.data.get('prompt')
+   
+        try:
+            res= queryCSV(text)
+            
+            return Response(res, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
 class FileUploadView(APIView):
     """Represents file upload view class.
@@ -25,7 +48,7 @@ class FileUploadView(APIView):
     POST: upload file
     """
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     parser_classes = (MultiPartParser, FormParser,)
 
     def post(self, request, *args, **kwargs):
@@ -35,7 +58,7 @@ class FileUploadView(APIView):
 
         Endpoint: /api/patients/file_upload/
         """
-        request.data['owner'] = request.user.id
+        # request.data['owner'] = request.user.id
         file_serializer = FileSerializer(data=request.data)
         # Commented code is for debugging only
         # import pdb; pdb.set_trace()
@@ -61,14 +84,16 @@ class FileUploadView(APIView):
                 csv_file = pd.read_csv(io_string, low_memory=False)
                 columns = list(csv_file.columns.values)
 
-                first_name, last_name, email = columns[0], columns[1],\
-                    columns[2]
+                first_name, last_name, email, location, age = columns[0], columns[1],\
+                    columns[2], columns[3], columns[4]
 
                 instances = [
                     Patient(
                         firstname=row[first_name],
                         lastname=row[last_name],
-                        email=row[email]
+                        email=row[email],
+                        location=row[location],
+                        age=row[age]
                     )
 
                     for index, row in csv_file.iterrows()
@@ -79,14 +104,16 @@ class FileUploadView(APIView):
             elif _excel is True:
                 xl = pd.read_excel(data)
                 columns = list(xl.columns.values)
-                first_name, last_name, email = columns[0], columns[1],\
-                    columns[2]
+                first_name, last_name, email, location, age = columns[0], columns[1],\
+                    columns[2], columns[3], columns[4]
 
                 instances = [
                     Patient(
                         firstname=row[first_name],
                         lastname=row[last_name],
-                        email=row[email]
+                        email=row[email],
+                        location=row[location],
+                        age=row[age]
                     )
 
                     for index, row in xl.iterrows()
