@@ -21,9 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rest-auth/', include(('rest_auth.urls', 'rest_auth'),
-         namespace='rest_auth')),
-
     path('api/patients/', include(('patients.urls', 'patients'),
                                   namespace='patients')),
 ]
