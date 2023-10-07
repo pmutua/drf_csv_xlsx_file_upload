@@ -1,4 +1,4 @@
-Django==3.0
+Django==3.1.14
 djangorestframework==3.14.0
 pandas==2.0.3
 langchain==0.0.229
