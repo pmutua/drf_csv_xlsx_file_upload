@@ -1,6 +1,6 @@
 Django==3.0
 djangorestframework==3.14.0
 pandas==2.0.3
-langchain==0.0.229
+langchain==0.0.312
 openai
 tabulate
